@@ -1,0 +1,39 @@
+create database jan3;
+use jan3;
+
+-- table name employee
+-- pk_empid empname city age salary
+-- table name project
+-- pk_prno fk_empid dept
+
+-- Q1- retrieve the records that have matching value in both table
+-- Q2- retrieve all values from employee table with the matching value from project table
+-- Q3- retrieve all values from project table that match the value of employee table
+-- Q4- write a sql query to retrieve all the combination records of employee table and project table
+
+create table employee(empid int primary key, empname varchar(100), city varchar(50), age int, salary numeric);
+create table project(projectno int primary key,empid int, foreign key (empid) references employee(empid), dept varchar(50));
+insert into employee values(100, 'Saksham', 'Varanasi',21,45000);
+insert into employee values(101, 'Suraj', 'Delhi',25,44000);
+insert into employee values(102, 'Roshan', 'Noida',23,42000);
+insert into employee values(103, 'Roshani', 'Noida',21,44000);
+insert into employee values(104, 'Vikram', 'Goa',29,44500);
+
+insert into project values(200,100,'Web-Developement');
+insert into project values(201,102,'Full-Stack-Developer');
+insert into project values(202,104,'UI-Developer');
+
+-- Answer 1
+Select empname,city,age,salary from employee INNER JOIN project where employee.empid = project.empid;
+-- Answer 2
+Select empname,city,age,salary from employee LEFT JOIN project on employee.empid = project.empid;
+-- Answer 3
+Select project.projectno, employee.empname from project RIGHT JOIN employee on employee.empid = project.empid;
+-- Answer 4
+Select projectno, employee.empname, employee.age from project FULL JOIN employee ;
+
+
+
+
+
+
